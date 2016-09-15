@@ -9,21 +9,26 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
- connection.query('SELECT ', function(err, rows, fields) {
-  if (err) throw err;
- 
-  console.log('The products : ', rows[0].solution);
+ 	connection.query('SELECT * FROM Bamazon.Products ', function(err, rows, column) {
+ 			 	if (err) throw err;
+
+ 			 	for(var i = 0; i<column.length; i++){
+  				console.log('The Products Id:', rows[i].idProducts)
+  				console.log('The Product Name:', rows[i].ProductName)
+  				console.log('The Department Name:', rows[i].DepartmentName)
+  				console.log('The Product Price:', rows[i].Price + ' Dollars');
+  			}
+
 });
 
  prompt.start();
 
- prompt.get(Please Select, function (err, result) {
-    // 
-    // Log the results. 
-    // 
-    console.log('Command-line input received:');
-    console.log('  proxy: ' + result.proxy);
-    console.log('  credentials: ' + result.proxyCredentials);
+ 	prompt.get(Product Information, function (err, result) {
+   			var purchase = {
+				ItemID: result.ItemID,
+				Quantity: result.StockQuantity
+	}
+    
   });
 
 
