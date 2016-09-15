@@ -1,4 +1,5 @@
 var mysql      = require('mysql');
+var prompt = require("prompt");
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
@@ -8,11 +9,22 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
- connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+ connection.query('SELECT ', function(err, rows, fields) {
   if (err) throw err;
  
-  console.log('The solution is: ', rows[0].solution);
+  console.log('The products : ', rows[0].solution);
 });
+
+ prompt.start();
+
+ prompt.get(Please Select, function (err, result) {
+    // 
+    // Log the results. 
+    // 
+    console.log('Command-line input received:');
+    console.log('  proxy: ' + result.proxy);
+    console.log('  credentials: ' + result.proxyCredentials);
+  });
 
 
  
