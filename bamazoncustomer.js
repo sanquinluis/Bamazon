@@ -2,6 +2,7 @@ var mysql      = require('mysql');
 var prompt = require("prompt");
 var connection = mysql.createConnection({
   host     : 'localhost',
+  port 	   :  3306,
   user     : 'root',
   password : 'root',
   database : 'Bamazon'
@@ -9,27 +10,32 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
- 	connection.query('SELECT * FROM Bamazon.Products ', function(err, rows, column) {
- 			 	if (err) throw err;
+ 	connection.query('SELECT * FROM Bamazon.Products ', function(err, results) {
+ 			 	if (err){
+ 			 		console.log(err);
+ 		} 
+ 			 	else {
 
- 			 	for(var i = 0; i<column.length; i++){
-  				console.log('The Products Id:', rows[i].idProducts)
-  				console.log('The Product Name:', rows[i].ProductName)
-  				console.log('The Department Name:', rows[i].DepartmentName)
-  				console.log('The Product Price:', rows[i].Price + ' Dollars');
+ 			 	for(var i = 0; i<results.length; i++){
+ 			 		console.log(results[i]);
+ 			 		console.log(results[i].ProductName);
+ 			 		console.log(results[i].DepartmentName);
+ 			 		console.log(results[i].Price);
+ 			 		console.log(results[i].StockQuantity);
+  				}
   			}
 
 });
 
  prompt.start();
 
- 	prompt.get(Product Information, function (err, result) {
-   			var purchase = {
-				ItemID: result.ItemID,
-				Quantity: result.StockQuantity
-	}
+ // 	prompt.get(Product Information, function (err, result) {
+ //   			var buy = {
+	// 			ItemID: result.ItemID,
+	// 			Quantity: result.StockQuantity
+	// }
     
-  });
+ //  });
 
 
  
