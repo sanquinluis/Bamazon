@@ -67,19 +67,31 @@ connection.connect();
 
 			var productQ = selection -1;
 
-			 if(productQ < 0 ){
-			 	console.log("Not enough merchandise");
+			 if(productQ > 0 ){
+			 	console.log("Sorry, Not enough in Stock");
 			 	
 			 } else {
-			 console.log('user may buy ' + result[0].ProductName)
+			 	for(var i = 0; i < result.length; i++){
+			 		console.log('The ' + result[i].ProductName + 
+			 			' cost ' + colors.green(" $") + result[0].Price );
+			 		console.log('Your Total is ' + colors.green(" $") + amount * result[productQ].Price);
+			 	}
+			 
+			 // updateProduct(selection,amount);
 		}
 		
+	})
+}
+//------------------------------------------------------------------------------------
+	//Third Function that updates the Mysql data.
+	function updateProduct(selection, amount){
+		connection.query('UPDATE Bamazon.Products SET WHERE ? = product_Id = ' + selection, function(err, result) {
+			selection--;
+			console(selection);
+			showMeProduct();
 	});
+
 };
-// 	function updateProduct(){
-// 		connection.query('UPDATE Bamazon.Products SET WHERE ? = ' + , function(err, result) {
-// 	});
-// };
 
  
 // connection.end();
