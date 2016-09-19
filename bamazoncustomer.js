@@ -1,5 +1,7 @@
 var mysql      = require('mysql');
 var prompt = require("prompt");
+var colors = require('colors');
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   port 	   :  3306,
@@ -10,33 +12,60 @@ var connection = mysql.createConnection({
  
 connection.connect();
 
- 	connection.query('SELECT * FROM Bamazon.Products ', function(err, results) {
- 			 	if (err){
- 			 		console.log(err);
- 		} 
- 			 	else {
+	var schema = {
+    		properties: {
+     	 		product_Id: {
+        			message: colors.blue('Select your product by Id'),
+        			required: true
+      },
+     			quantity: {
+     				message: colors.blue('How many units of the product would you like to buy?'),
+        			required: true
+      }
 
- 			 	for(var i = 0; i<results.length; i++){
- 			 		console.log(results[i]);
- 			 		console.log(results[i].ProductName);
- 			 		console.log(results[i].DepartmentName);
- 			 		console.log(results[i].Price);
- 			 		console.log(results[i].StockQuantity);
-  				}
-  			}
+    }
 
+  };
+	showMeProduct();
+	function showMeProduct() {
+ 	connection.query('SELECT * FROM Bamazon.Products ', function(err, result) {
+ 			 	if (err) throw err;
+ 			
+ 			console.log(colors.red("Welcome to Bamazon!!")); 
+
+ 			for (var i = 0; i < result.length; i++){
+			console.log(result[i].idProducts + " " + "'" + 
+						result[i].ProductName + "'" + " " + 
+						result[i].DepartmentName + colors.green(" $") + 
+						result[i].Price + " " + 
+						result[i].StockQuantity + colors.magenta(" Units"));	
+		}
 });
 
- prompt.start();
+  	prompt.start();
 
- // 	prompt.get(Product Information, function (err, result) {
- //   			var buy = {
-	// 			ItemID: result.ItemID,
-	// 			Quantity: result.StockQuantity
-	// }
-    
- //  });
+ 	prompt.get(schema, function (err, result) {
+ 				if (err) throw err;
+ 				// console.log('Command-line input received:');
+ 				console.log(product_Id.result);
+ 				console.log(quantity.result);
 
+ 				selection = result.idProducts;
+ 				amount = result.StockQuantity;
+
+ 				showMeProduct();
+ 				checkingOut(selection,amount);
+  });
+
+}//end of function showMeProduct
+
+	function checkingOut(idpro, qua) {
+		connection.query('SELECT * FROM Bamazon.Products WHERE idProducts = ' + idpro, function(err, result) {
+		if (err) throw err;
+		console.log()
+
+	});
+};
 
  
-connection.end();
+// connection.end();
