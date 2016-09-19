@@ -86,7 +86,6 @@ connection.connect();
 	//Third Function that updates the Mysql data.
 	function updateProduct(selection, amount){
 		connection.query('UPDATE Bamazon.Products SET WHERE ? = product_Id = ' + selection, function(err, result) {
-			selection--;
 			console(selection);
 			showMeProduct();
 	});
