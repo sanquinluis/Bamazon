@@ -67,10 +67,9 @@ connection.connect();
 
 			var productQ = selection -1;
 
-			 if(productQ > result.length || productQ <= 0 ){
+			 if(productQ < 0 ){
 			 	console.log("Not enough merchandise");
 			 	
-			 return;
 			 } else {
 			 console.log('user may buy ' + result[0].ProductName)
 		}
