@@ -1,0 +1,25 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Using Mysql data in homework",
+  "main": "bamazoncustomer.js",
+  "dependencies": {
+    "colors": "^1.1.2",
+    "mysql": "^2.11.1",
+    "prompt": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sanquinluis/Bamazon.git"
+  },
+  "author": "Hector L. Santana-Quintana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sanquinluis/Bamazon/issues"
+  },
+  "homepage": "https://github.com/sanquinluis/Bamazon#readme"
+}

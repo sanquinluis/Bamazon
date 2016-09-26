@@ -11,7 +11,28 @@ var connection = mysql.createConnection({
 });
  
 connection.connect();
-		var schema = {
+		
+	showMeProduct();
+//------------------------------------------------------------------------------------
+	//First function that prints the products. 
+	function showMeProduct() {
+ 	connection.query('SELECT * FROM Bamazon.Products ', function(err, result) {
+ 			 	if (err) throw err;
+ 			
+ 				console.log(colors.red("------Welcome to Bamazon!!------")); 
+ 				console.log("							");
+
+ 			for (var i = 0; i < result.length; i++){
+				console.log(result[i].idProducts + " " + "'" + 
+						result[i].ProductName + "'" + " " + 
+						result[i].DepartmentName + colors.green(" $") + 
+						result[i].Price + " " + 
+						result[i].StockQuantity + colors.magenta(" Units"));	
+		}
+})
+ 	// prompt.message = colors.green("Your order:");
+  	
+  		var schema = {
     			properties: {
      	 			product_Id: {
         				message: colors.blue('Select your product by Id'),
@@ -25,34 +46,18 @@ connection.connect();
     }
 
   };
-
-	
-	showMeProduct();
-//------------------------------------------------------------------------------------
-	//First function that prints the products. 
-	function showMeProduct() {
- 	connection.query('SELECT * FROM Bamazon.Products ', function(err, result) {
- 			 	if (err) throw err;
- 			
- 				console.log(colors.red("Welcome to Bamazon!!")); 
-
- 			for (var i = 0; i < result.length; i++){
-				console.log(result[i].idProducts + " " + "'" + 
-						result[i].ProductName + "'" + " " + 
-						result[i].DepartmentName + colors.green(" $") + 
-						result[i].Price + " " + 
-						result[i].StockQuantity + colors.magenta(" Units"));	
-		}
-})
-
-  	prompt.start();
-
  	prompt.get(schema, function (err, result) {
  				if (err) throw err;
  				// console.log('Command-line input received:');
 
- 				selection = result.product_Id;
- 				amount = result.quantity;
+ 			var ordering = {
+ 				product_Id: result.idProducts,
+ 				quantity: result.StockQuantity
+
+ 			};	
+
+ 			var selection = result.product_Id;
+ 			var	amount = result.quantity;
 
  				// showMeProduct();
  				checkingOut(selection,amount);
@@ -85,7 +90,7 @@ connection.connect();
 //------------------------------------------------------------------------------------
 	//Third Function that updates the Mysql data.
 	function updateProduct(selection, amount){
-		connection.query('UPDATE Bamazon.Products SET WHERE ? = product_Id = ' + selection, function(err, result) {
+		connection.query('UPDATE Bamazon.Products SET WHERE ? = idProducts = ' + selection, function(err, result) {
 			console(selection);
 			showMeProduct();
 	});
